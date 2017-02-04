@@ -5,12 +5,13 @@ server = MongoClient('149.89.150.100')
 db = server.binoculars #database
 c = db.students #collection
 
-#print c.count()
+rcourses = open("courses.csv")
+rpeeps = open("peeps.csv")
+dcourses = csv.DictReader(rcourses)
+dpeeps = csv.DictReader(rpeeps)
+peeps = []
 
-courses = open("courses.csv")
-peeps = open("peeps.csv")
-dcourses = csv.dictReader(courses)
-dpeeps = csv.dictReader(peeps)
-
-for x in dcourses:
-        c.insert_one(x);
+for x in dpeeps:
+	peeps.append(x)
+	
+c.insert_one(peeps[0])
