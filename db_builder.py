@@ -7,4 +7,10 @@ c = db.students #collection
 
 #print c.count()
 
-c.insert_one
+courses = open("courses.csv")
+peeps = open("peeps.csv")
+dcourses = csv.dictReader(courses)
+dpeeps = csv.dictReader(peeps)
+
+for x in dcourses:
+        c.insert_one(x);
