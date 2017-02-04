@@ -3,15 +3,16 @@ import csv
 
 server = MongoClient('149.89.150.100')
 db = server.binoculars #database
-c = db.students #collection
+col = db.students #collection
 
-rcourses = open("courses.csv")
-rpeeps = open("peeps.csv")
-dcourses = csv.DictReader(rcourses)
-dpeeps = csv.DictReader(rpeeps)
-peeps = []
+pObj = open("peeps.csv")
+peeps = list(csv.DictReader(pObj))
+cObj = open("courses.csv")
+courses = list(csv.DictReader(cObj))
 
-for x in dpeeps:
-	peeps.append(x)
-	
-c.insert_one(peeps[0])
+for p in peeps:
+	student = p
+	for c in courses:
+		if p['id'] == c['id']:
+			student.update({c['code']:c['mark']})
+	c.insert_one(student)
