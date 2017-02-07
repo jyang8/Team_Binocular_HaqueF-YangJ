@@ -19,3 +19,6 @@ for p in peeps:
 			student['classes'].update({c['code']:c['mark']})
 			#student[c['code']] = c['mark']
 	col.insert_one(student)
+
+pObj.close()
+cObj.close()

@@ -4,7 +4,7 @@ import csv
 server = MongoClient('149.89.150.100')
 #server = MongoClient('127.0.0.1')
 db = server.binoculars #database
-col = db.students #collection
+col1 = db.students #collection
 
 peeps = col.find()
 for p in peeps:
@@ -16,3 +16,16 @@ for p in peeps:
 		sum += int(classes[c])
 	avg = sum/(len(classes))
 	print "name: %s id: %s avg: %d" %(name,id,avg)
+
+col2 = db.teachers #another collection
+tObj = open("teachers.csv")
+teachers = list(csv.DictReader(tObj))
+
+for t in teachers:
+        teacher = t
+        teacher['students'] = []
+        for s in col1.find( { 'code' : t['code'] } ):
+                teacher['students'].append(s['id'])
+        col2.insert_one(teacher)
+
+tObj.close()
