@@ -13,7 +13,9 @@ courses = list(csv.DictReader(cObj))
 
 for p in peeps:
 	student = p
+	student['classes'] = {}
 	for c in courses:
 		if p['id'] == c['id']:
-			student[c['code']] = c['mark']
+			student['classes'].update({c['code']:c['mark']})
+			#student[c['code']] = c['mark']
 	col.insert_one(student)
